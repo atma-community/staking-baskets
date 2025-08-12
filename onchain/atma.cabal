@@ -1,0 +1,234 @@
+cabal-version:      3.0
+name:               atrium
+version:            0.1
+synopsis:           TODO
+description:        TODO
+homepage:           https://github.com/mlabs-haskell/atrium
+bug-reports:        https://github.com/mlabs-haskell/atrium
+license:
+license-file:
+author:             MLabs
+maintainer:         TODO
+copyright:          TODO
+category:           TODO
+build-type:         Simple
+tested-with:        GHC ==9.2.1
+extra-source-files: README.md
+
+source-repository head
+  type:     git
+  location: https://github.com/mlabs-haskell/atrium
+
+-- Common sections
+
+common common-lang
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns -Wno-unused-do-bind
+    -Wno-partial-type-signatures -Wmissing-export-lists
+    -Wincomplete-record-updates -Wmissing-deriving-strategies
+    -Wno-name-shadowing -Wunused-foralls -fprint-explicit-foralls
+    -Werror -fprint-explicit-kinds -fwarn-missing-import-lists
+
+  mixins:
+    base hiding (Prelude),
+    pprelude (PPrelude as Prelude)
+
+  build-depends:
+    , base      >=4.14
+    , pprelude
+
+  default-extensions:
+    NoStarIsType
+    BangPatterns
+    BinaryLiterals
+    ConstrainedClassMethods
+    ConstraintKinds
+    DataKinds
+    DeriveAnyClass
+    DeriveDataTypeable
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveLift
+    DeriveTraversable
+    DerivingStrategies
+    DerivingVia
+    DoAndIfThenElse
+    EmptyCase
+    EmptyDataDecls
+    EmptyDataDeriving
+    ExistentialQuantification
+    ExplicitForAll
+    FlexibleContexts
+    FlexibleInstances
+    ForeignFunctionInterface
+    GADTSyntax
+    GeneralisedNewtypeDeriving
+    HexFloatLiterals
+    ImplicitPrelude
+    ImportQualifiedPost
+    InstanceSigs
+    KindSignatures
+    LambdaCase
+    MonomorphismRestriction
+    MultiParamTypeClasses
+    NamedFieldPuns
+    NamedWildCards
+    NumericUnderscores
+    OverloadedRecordDot
+    OverloadedStrings
+    PartialTypeSignatures
+    PatternGuards
+    PolyKinds
+    PostfixOperators
+    QualifiedDo
+    RankNTypes
+    RelaxedPolyRec
+    ScopedTypeVariables
+    StandaloneDeriving
+    StandaloneKindSignatures
+    TraditionalRecordSyntax
+    TupleSections
+    TypeApplications
+    TypeFamilies
+    TypeOperators
+    TypeSynonymInstances
+    ViewPatterns
+
+  default-language:   Haskell2010
+
+-- Libraries
+
+library
+  import:          common-lang
+  exposed-modules:
+    Atma.PTypes
+    Atma.Scripts.BasketTokenMP
+    Atma.Scripts.BasketValidator
+    Atma.Scripts.BasketValidator.DepositWithdraw
+    Atma.Scripts.BasketValidator.Donate
+    Atma.Scripts.BasketValidator.Rebalance
+    Atma.Scripts.BasketValidator.SetAdmin
+    Atma.Scripts.BasketValidator.SwitchLock
+    Atma.Scripts.BasketValidator.UpdateExRate
+    Atma.Scripts.Common
+    Atma.Scripts.OneShotMintingPolicy
+    Atma.Scripts.StakePoolTokenMP
+    Atma.Scripts.StakeValidator
+    Atma.Scripts.UnspendableValidator
+    Atma.Types
+    Atma.Utils
+    Atma.Utils.ExRate
+    Atma.Utils.QuickCheck
+    Atma.Utils.Value
+
+  build-depends:
+    , bytestring
+    , data-default
+    , flat
+    , generics-sop
+    , liqwid-plutarch-extra
+    , plutarch
+    , plutarch-context-builder
+    , plutarch-extra
+    , plutarch-quickcheck
+    , plutus-ledger-api
+    , plutus-tx
+    , QuickCheck
+    , quickcheck-instances
+
+  hs-source-dirs:  src
+
+library pprelude
+  default-language: Haskell2010
+  build-depends:
+    , base
+    , plutarch
+
+  exposed-modules:  PPrelude
+  hs-source-dirs:   src
+
+test-suite atrium-test
+  import:         common-lang
+  type:           exitcode-stdio-1.0
+  main-is:        Spec.hs
+  build-depends:
+    , atrium
+    , bytestring
+    , cardano-ledger-babbage
+    , cardano-ledger-core
+    , cardano-simple
+    , data-default
+    , discrimination
+    , flat
+    , lens
+    , mtl
+    , plutarch
+    , plutarch-context-builder
+    , plutarch-extra
+    , plutarch-quickcheck
+    , plutus-core
+    , plutus-ledger-api
+    , plutus-simple-model
+    , plutus-tx
+    , pretty
+    , pretty-show
+    , pretty-simple
+    , QuickCheck
+    , quickcheck-instances
+    , random
+    , stm
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , text
+
+  other-modules:
+    Config
+    Suites.Atma.Common
+    Suites.Atma.Common.BasketContext
+    Suites.Atma.Common.PSM
+    Suites.Atma.Common.Utils
+    Suites.Atma.Config
+    Suites.Atma.Deposit.Tests
+    Suites.Atma.Deposit.Transactions
+    Suites.Atma.Donate.Tests
+    Suites.Atma.Donate.Transactions
+    Suites.Atma.Initialize.Tests
+    Suites.Atma.OneShotMintingPolicy.Tests
+    Suites.Atma.OneShotMintingPolicy.Transactions
+    Suites.Atma.Rebalancing.Tests
+    Suites.Atma.Rebalancing.Transactions
+    Suites.Atma.Serialization.PConstantDecl
+    Suites.Atma.SetAdmin.Tests
+    Suites.Atma.SetAdmin.Transactions
+    Suites.Atma.SwitchLock.Tests
+    Suites.Atma.SwitchLock.Transactions
+    Suites.Atma.Tests
+    Suites.Atma.UpdateExRate.Tests
+    Suites.Atma.UpdateExRate.Transactions
+    Suites.Atma.Utils
+    Suites.Atma.Utils.ExRate
+    Suites.Atma.Withdraw.Tests
+    Suites.Atma.Withdraw.Transactions
+
+  hs-source-dirs: test
+
+executable serialise
+  import:         common-lang
+  main-is:        Main.hs
+  build-depends:
+    , aeson
+    , aeson-pretty
+    , atrium
+    , bytestring
+    , data-default
+    , optparse-applicative
+    , plutarch
+    , plutus-core
+    , plutus-ledger-api
+    , ply-core
+    , ply-plutarch
+    , text
+
+  hs-source-dirs: app
