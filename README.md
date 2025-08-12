@@ -41,7 +41,6 @@ If you wish to use this code, please fork it and adapt it for your own purposes.
 ## Audit Report
 
 - Audited by [Anastasia Labs](https://www.anastasialabs.com/).
-- [View Audit Report](/link-to-report-in-repo)
 
 ---
 
