@@ -53,6 +53,8 @@ This project is released under the [Apache 2.0 License](./LICENSE). You are free
 ## Community and Credits
 
 - Funded in part by [Project Catalyst](https://projectcatalyst.io/).
+- Funded, and co-developed in part by Atrium Lab Inc.
+- Co-developed by MLABS.
 
 ---
 
